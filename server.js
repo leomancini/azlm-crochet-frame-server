@@ -1,5 +1,6 @@
 import express from "express";
 import cors from "cors";
+import { colors } from "./colors.js";
 
 const app = express();
 const port = 3102;
@@ -11,7 +12,6 @@ app.get("/", (req, res) => {
   try {
     console.log("Received request from:", req.ip);
 
-    // Set additional headers that might help with the connection
     res.setHeader("Content-Type", "application/json");
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.setHeader("Access-Control-Allow-Methods", "GET");
@@ -21,12 +21,12 @@ app.get("/", (req, res) => {
       {
         label: "Testing",
         value: "Leo",
-        color: 0x00ff00 // Green
+        color: colors.green
       },
       {
         label: "Testing 2",
         value: "Alicia",
-        color: 0xff00ff // Yellow
+        color: colors.blue
       }
     ];
 
@@ -38,7 +38,6 @@ app.get("/", (req, res) => {
   }
 });
 
-// Start HTTP server
 app.listen(port, () => {
   console.log(`HTTP Server is running at http://localhost:${port}`);
 });
