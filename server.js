@@ -5,7 +5,6 @@ import { colors } from "./colors.js";
 const app = express();
 const port = 3102;
 
-// Enable CORS for all routes
 app.use(cors());
 
 app.get("/", (req, res) => {
