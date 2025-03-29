@@ -1,0 +1,9 @@
+{
+  "service_id": "azlm-crochet-frame-server",
+  "service_name": "AZLM Crochet Frame Server",
+  "domain": "https://azlm-crochet-frame-server.noshado.ws",
+  "host": "localhost",
+  "port": "3102",
+  "author": "leo",
+  "created_on": "Sat 29 Mar 2025 06:05:49 PM EDT"
+}
