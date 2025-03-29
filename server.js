@@ -17,16 +17,18 @@ app.get("/", (req, res) => {
     res.setHeader("Access-Control-Allow-Methods", "GET");
     res.setHeader("Cache-Control", "no-cache");
 
-    const data = {
-      company: {
+    const data = [
+      {
+        label: "company",
         value: "OFC",
         color: 0x00ff00 // Green
       },
-      founded: {
+      {
+        label: "founded",
         value: 2022,
         color: 0xff00ff // Yellow
       }
-    };
+    ];
 
     console.log("Sending response:", data);
     res.json(data);
