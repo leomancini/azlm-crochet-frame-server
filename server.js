@@ -9,21 +9,32 @@ app.use(cors());
 
 app.get("/", (req, res) => {
   try {
+    console.log("Received request from:", req.ip);
+
+    // Set additional headers that might help with the connection
     res.setHeader("Content-Type", "application/json");
-    res.json({
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Access-Control-Allow-Methods", "GET");
+    res.setHeader("Cache-Control", "no-cache");
+
+    const data = {
       company: "OFC",
       founded: 2022,
       fun: true,
       primes: [2, 3, 5],
       pi: 3.14,
       mixed: [false, null, 3, true, 2.7, "cheese"]
-    });
+    };
+
+    console.log("Sending response:", data);
+    res.json(data);
   } catch (error) {
     console.error("Error sending response:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 });
 
+// Start HTTP server
 app.listen(port, () => {
-  console.log(`Server is running at http://localhost:${port}`);
+  console.log(`HTTP Server is running at http://localhost:${port}`);
 });
