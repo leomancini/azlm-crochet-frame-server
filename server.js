@@ -4,6 +4,7 @@ const app = express();
 const port = 3102;
 
 app.get("/", (req, res) => {
+  res.setHeader("Content-Type", "application/json");
   res.json({
     company: "OFC",
     founded: 2022,
