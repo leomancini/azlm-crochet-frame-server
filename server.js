@@ -19,13 +19,13 @@ app.get("/", (req, res) => {
 
     const data = [
       {
-        label: "company",
-        value: "OFC",
+        label: "Testing",
+        value: "Leo",
         color: 0x00ff00 // Green
       },
       {
-        label: "founded",
-        value: 2022,
+        label: "Testing 2",
+        value: "Alicia",
         color: 0xff00ff // Yellow
       }
     ];
