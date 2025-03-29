@@ -24,23 +24,7 @@ app.get("/", (req, res) => {
       },
       founded: {
         value: 2022,
-        color: 0xffff00 // Yellow
-      },
-      fun: {
-        value: true,
-        color: 0xff00ff // Magenta
-      },
-      primes: {
-        value: [2, 3, 5],
-        color: 0xff8000 // Orange
-      },
-      pi: {
-        value: 3.14,
-        color: 0x00ffff // Cyan
-      },
-      mixed: {
-        value: [false, null, 3, true, 2.7, "cheese"],
-        color: 0x0080ff // Light blue
+        color: 0xff00ff // Yellow
       }
     };
 
