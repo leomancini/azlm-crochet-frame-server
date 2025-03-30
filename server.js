@@ -9,8 +9,6 @@ app.use(cors());
 
 app.get("/", (req, res) => {
   try {
-    console.log("Received request from:", req.ip);
-
     res.setHeader("Content-Type", "application/json");
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.setHeader("Access-Control-Allow-Methods", "GET");
@@ -20,12 +18,12 @@ app.get("/", (req, res) => {
       {
         label: "Testing",
         value: "Leo",
-        color: colors.green
+        color: colors.purple
       },
       {
         label: "Testing 2",
         value: "Alicia",
-        color: colors.blue
+        color: colors.red
       }
     ];
 
