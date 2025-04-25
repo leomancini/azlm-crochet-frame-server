@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import { colors } from "./colors.js";
+import { modes } from "./modes.js";
 
 const app = express();
 const port = 3102;
@@ -17,16 +18,11 @@ app.get("/", (req, res) => {
     res.setHeader("Access-Control-Allow-Methods", "GET");
     res.setHeader("Cache-Control", "no-cache");
 
+    const currentMode = modes.SPARKLES;
+
     const data = [
       {
-        label: "Testing",
-        value: "Leo",
-        color: colors.green
-      },
-      {
-        label: "Testing 2",
-        value: "Alicia",
-        color: colors.blue
+        mode: currentMode.name
       }
     ];
 
