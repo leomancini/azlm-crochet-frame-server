@@ -17,11 +17,9 @@ app.get("/", (req, res) => {
 
     const currentMode = modes.SPARKLES;
 
-    const data = [
-      {
-        mode: currentMode.name
-      }
-    ];
+    const data = {
+      mode: currentMode.name
+    };
 
     console.log("Sending response:", data);
     res.json(data);
