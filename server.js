@@ -6,13 +6,10 @@ import { modes } from "./modes.js";
 const app = express();
 const port = 3102;
 
-// Enable CORS for all routes
 app.use(cors());
 
 app.get("/", (req, res) => {
   try {
-    console.log("Received request from:", req.ip);
-
     res.setHeader("Content-Type", "application/json");
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.setHeader("Access-Control-Allow-Methods", "GET");
