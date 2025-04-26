@@ -19,8 +19,45 @@ let data = {
   frame_rate: 60,
   transition_time: 1,
   sparkle_size: 1,
-  max_active_colors: 10
+  max_active_colors: 10,
+  colors: [
+    16711680, // Red
+    16744448, // Orange
+    16776960, // Yellow
+    65280, // Green
+    65535, // Cyan
+    255, // Blue
+    8388863, // Purple
+    16711935, // Magenta
+    16777215, // White
+    16761024, // Light Pink
+    12648384, // Light Green
+    12632319 // Light Blue
+  ]
 };
+
+// Color mapping for reference
+const COLOR_VALUES = {
+  red: 0xff0000,
+  orange: 0xff8000,
+  yellow: 0xffff00,
+  green: 0x00ff00,
+  cyan: 0x00ffff,
+  blue: 0x0000ff,
+  purple: 0x8000ff,
+  magenta: 0xff00ff,
+  white: 0xffffff,
+  lightPink: 0xffc0c0,
+  lightGreen: 0xc0ffc0,
+  lightBlue: 0xc0c0ff
+};
+
+// Function to get selected colors as array
+function getSelectedColors(colors) {
+  return Object.entries(colors)
+    .filter(([_, isSelected]) => isSelected)
+    .map(([colorName]) => COLOR_VALUES[colorName]);
+}
 
 // Serve index.html for the root path
 app.get("/", (req, res) => {

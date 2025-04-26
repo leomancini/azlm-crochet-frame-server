@@ -49,6 +49,25 @@
         background-color: #e9ecef;
         border-radius: 4px;
       }
+      .color-checkboxes {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 10px;
+        margin-top: 10px;
+      }
+      .color-option {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .color-option label {
+        font-weight: normal;
+        margin-bottom: 0;
+      }
+      .color-option input[type="checkbox"] {
+        width: auto;
+        margin: 0;
+      }
     </style>
   </head>
   <body>
@@ -112,6 +131,131 @@
             required
           />
         </div>
+        <div class="form-group">
+          <label>Colors:</label>
+          <div class="color-checkboxes">
+            <div class="color-option">
+              <input
+                type="checkbox"
+                id="red"
+                name="colors"
+                value="16711680"
+                checked
+              />
+              <label for="red" style="color: #ff0000">Red</label>
+            </div>
+            <div class="color-option">
+              <input
+                type="checkbox"
+                id="orange"
+                name="colors"
+                value="16744448"
+                checked
+              />
+              <label for="orange" style="color: #ff8000">Orange</label>
+            </div>
+            <div class="color-option">
+              <input
+                type="checkbox"
+                id="yellow"
+                name="colors"
+                value="16776960"
+                checked
+              />
+              <label for="yellow" style="color: #ffff00">Yellow</label>
+            </div>
+            <div class="color-option">
+              <input
+                type="checkbox"
+                id="green"
+                name="colors"
+                value="65280"
+                checked
+              />
+              <label for="green" style="color: #00ff00">Green</label>
+            </div>
+            <div class="color-option">
+              <input
+                type="checkbox"
+                id="cyan"
+                name="colors"
+                value="65535"
+                checked
+              />
+              <label for="cyan" style="color: #00ffff">Cyan</label>
+            </div>
+            <div class="color-option">
+              <input
+                type="checkbox"
+                id="blue"
+                name="colors"
+                value="255"
+                checked
+              />
+              <label for="blue" style="color: #0000ff">Blue</label>
+            </div>
+            <div class="color-option">
+              <input
+                type="checkbox"
+                id="purple"
+                name="colors"
+                value="8388863"
+                checked
+              />
+              <label for="purple" style="color: #8000ff">Purple</label>
+            </div>
+            <div class="color-option">
+              <input
+                type="checkbox"
+                id="magenta"
+                name="colors"
+                value="16711935"
+                checked
+              />
+              <label for="magenta" style="color: #ff00ff">Magenta</label>
+            </div>
+            <div class="color-option">
+              <input
+                type="checkbox"
+                id="white"
+                name="colors"
+                value="16777215"
+                checked
+              />
+              <label for="white" style="color: #000000">White</label>
+            </div>
+            <div class="color-option">
+              <input
+                type="checkbox"
+                id="lightPink"
+                name="colors"
+                value="16761024"
+                checked
+              />
+              <label for="lightPink" style="color: #ffc0c0">Light Pink</label>
+            </div>
+            <div class="color-option">
+              <input
+                type="checkbox"
+                id="lightGreen"
+                name="colors"
+                value="12648384"
+                checked
+              />
+              <label for="lightGreen" style="color: #c0ffc0">Light Green</label>
+            </div>
+            <div class="color-option">
+              <input
+                type="checkbox"
+                id="lightBlue"
+                name="colors"
+                value="12632319"
+                checked
+              />
+              <label for="lightBlue" style="color: #c0c0ff">Light Blue</label>
+            </div>
+          </div>
+        </div>
         <button type="submit">Update Settings</button>
       </form>
       <div id="currentValues">
@@ -145,9 +289,17 @@
       // Populate form with current values
       function populateForm(data) {
         Object.keys(data).forEach((key) => {
-          const input = document.getElementById(key);
-          if (input) {
-            input.value = data[key];
+          if (key === "colors") {
+            // Handle colors array
+            const checkboxes = form.querySelectorAll('input[name="colors"]');
+            checkboxes.forEach((checkbox) => {
+              checkbox.checked = data.colors.includes(Number(checkbox.value));
+            });
+          } else {
+            const input = document.getElementById(key);
+            if (input) {
+              input.value = data[key];
+            }
           }
         });
       }
@@ -160,7 +312,15 @@
 
         // Convert form data to proper types
         for (const [key, value] of formData.entries()) {
-          data[key] = Number(value);
+          if (key === "colors") {
+            // Handle colors array
+            if (!data.colors) {
+              data.colors = [];
+            }
+            data.colors.push(Number(value));
+          } else {
+            data[key] = Number(value);
+          }
         }
 
         try {
