@@ -19,7 +19,7 @@ let data = {
   frame_rate: 60,
   transition_time: 1,
   sparkle_size: 1,
-  num_palettes: 10
+  max_active_colors: 10
 };
 
 // Serve index.html for the root path
