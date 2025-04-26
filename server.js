@@ -19,7 +19,7 @@ app.get("/", (req, res) => {
 
     const data = {
       mode: currentMode.name,
-      num_sparkles: 1000,
+      num_sparkles: 100,
       frame_rate: 30,
       transition_time: 2,
       sparkle_size: 1,
