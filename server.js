@@ -17,9 +17,8 @@ app.use(express.static(__dirname));
 let data = {
   num_sparkles: 100,
   frame_rate: 60,
-  transition_time: 1,
+  speed: 10,
   sparkle_size: 1,
-  max_active_colors: 10,
   colors: [
     16711680, // Red
     16744448, // Orange
@@ -51,13 +50,6 @@ const COLOR_VALUES = {
   lightGreen: 0xc0ffc0,
   lightBlue: 0xc0c0ff
 };
-
-// Function to get selected colors as array
-function getSelectedColors(colors) {
-  return Object.entries(colors)
-    .filter(([_, isSelected]) => isSelected)
-    .map(([colorName]) => COLOR_VALUES[colorName]);
-}
 
 // Serve index.html for the root path
 app.get("/", (req, res) => {
