@@ -9,11 +9,11 @@ app.use(cors());
 app.get("/", (req, res) => {
   try {
     const data = {
-      num_sparkles: 1,
+      num_sparkles: 100,
       frame_rate: 60,
       transition_time: 1,
-      sparkle_size: 24,
-      num_palettes: 1
+      sparkle_size: 1,
+      num_palettes: 10
     };
 
     res.json(data);
