@@ -9,10 +9,10 @@ app.use(cors());
 app.get("/", (req, res) => {
   try {
     const data = {
-      num_sparkles: 100,
+      num_sparkles: 1,
       frame_rate: 60,
       transition_time: 1,
-      sparkle_size: 3,
+      sparkle_size: 64,
       num_palettes: 1
     };
 
