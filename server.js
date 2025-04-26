@@ -16,9 +16,8 @@ app.use(express.static(__dirname));
 // Initial data state
 let data = {
   num_sparkles: 100,
-  frame_rate: 60,
-  speed: 10,
   sparkle_size: 1,
+  speed: 10,
   colors: [
     16711680, // Red
     16744448, // Orange
