@@ -1,7 +1,5 @@
 import express from "express";
 import cors from "cors";
-import { colors } from "./colors.js";
-import { modes } from "./modes.js";
 
 const app = express();
 const port = 3102;
@@ -10,23 +8,14 @@ app.use(cors());
 
 app.get("/", (req, res) => {
   try {
-    res.setHeader("Content-Type", "application/json");
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    res.setHeader("Access-Control-Allow-Methods", "GET");
-    res.setHeader("Cache-Control", "no-cache");
-
-    const currentMode = modes.SPARKLES;
-
     const data = {
-      mode: currentMode.name,
       num_sparkles: 100,
-      frame_rate: 30,
-      transition_time: 2,
-      sparkle_size: 1,
-      num_palettes: 5
+      frame_rate: 60,
+      transition_time: 1,
+      sparkle_size: 3,
+      num_palettes: 1
     };
 
-    console.log("Sending response:", data);
     res.json(data);
   } catch (error) {
     console.error("Error sending response:", error);
