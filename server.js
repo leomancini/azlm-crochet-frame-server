@@ -12,7 +12,7 @@ app.get("/", (req, res) => {
       num_sparkles: 1,
       frame_rate: 60,
       transition_time: 1,
-      sparkle_size: 64,
+      sparkle_size: 24,
       num_palettes: 1
     };
 
