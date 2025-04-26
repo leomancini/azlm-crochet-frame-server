@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sparkle Control Panel</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #f5f5f5;
+      }
+      .control-panel {
+        background-color: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      .form-group {
+        margin-bottom: 15px;
+      }
+      label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+      }
+      input[type="number"] {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+      }
+      button {
+        background-color: #4caf50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: #45a049;
+      }
+      #currentValues {
+        margin-top: 20px;
+        padding: 15px;
+        background-color: #e9ecef;
+        border-radius: 4px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="control-panel">
+      <h1>Sparkle Control Panel</h1>
+      <form id="sparkleForm">
+        <div class="form-group">
+          <label for="num_sparkles">Number of Sparkles:</label>
+          <input
+            type="number"
+            id="num_sparkles"
+            name="num_sparkles"
+            min="1"
+            max="1000"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="frame_rate">Frame Rate:</label>
+          <input
+            type="number"
+            id="frame_rate"
+            name="frame_rate"
+            min="1"
+            max="120"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="transition_time">Transition Time (seconds):</label>
+          <input
+            type="number"
+            id="transition_time"
+            name="transition_time"
+            min="0.1"
+            max="10"
+            step="0.1"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="sparkle_size">Sparkle Size:</label>
+          <input
+            type="number"
+            id="sparkle_size"
+            name="sparkle_size"
+            min="0.1"
+            max="5"
+            step="0.1"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="num_palettes">Number of Palettes:</label>
+          <input
+            type="number"
+            id="num_palettes"
+            name="num_palettes"
+            min="1"
+            max="20"
+            required
+          />
+        </div>
+        <button type="submit">Update Settings</button>
+      </form>
+      <div id="currentValues">
+        <h2>Current Values</h2>
+        <pre id="valuesDisplay"></pre>
+      </div>
+    </div>
+
+    <script>
+      const form = document.getElementById("sparkleForm");
+      const valuesDisplay = document.getElementById("valuesDisplay");
+      const serverUrl = "http://localhost:3102/api/settings";
+
+      // Fetch and display initial values
+      async function fetchCurrentValues() {
+        try {
+          const response = await fetch(serverUrl);
+          const data = await response.json();
+          displayValues(data);
+          populateForm(data);
+        } catch (error) {
+          console.error("Error fetching values:", error);
+        }
+      }
+
+      // Display values in the pre element
+      function displayValues(data) {
+        valuesDisplay.textContent = JSON.stringify(data, null, 2);
+      }
+
+      // Populate form with current values
+      function populateForm(data) {
+        Object.keys(data).forEach((key) => {
+          const input = document.getElementById(key);
+          if (input) {
+            input.value = data[key];
+          }
+        });
+      }
+
+      // Handle form submission
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const formData = new FormData(form);
+        const data = {};
+
+        // Convert form data to proper types
+        for (const [key, value] of formData.entries()) {
+          data[key] = Number(value);
+        }
+
+        try {
+          const response = await fetch(serverUrl, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+          });
+
+          if (response.ok) {
+            const updatedData = await response.json();
+            displayValues(updatedData);
+            // Add visual feedback
+            const button = form.querySelector("button");
+            button.textContent = "Settings Updated!";
+            setTimeout(() => {
+              button.textContent = "Update Settings";
+            }, 2000);
+          } else {
+            console.error("Error updating values");
+            alert("Failed to update settings. Please try again.");
+          }
+        } catch (error) {
+          console.error("Error:", error);
+          alert("Error connecting to server. Please try again.");
+        }
+      });
+
+      // Initial fetch
+      fetchCurrentValues();
+    </script>
+  </body>
+</html>
