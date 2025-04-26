@@ -39,8 +39,22 @@ app.get("/api/settings", (req, res) => {
 
 app.post("/api/settings", (req, res) => {
   try {
+    console.log("Received POST request with body:", req.body);
+
+    // Validate the request body
+    if (!req.body || typeof req.body !== "object") {
+      console.error("Invalid request body:", req.body);
+      return res.status(400).json({ error: "Invalid request body" });
+    }
+
     // Update data with new values
-    data = { ...data, ...req.body };
+    const updatedData = { ...data, ...req.body };
+    console.log("Updated data:", updatedData);
+
+    // Update the data state
+    data = updatedData;
+
+    // Send the updated data back
     res.json(data);
   } catch (error) {
     console.error("Error updating data:", error);
