@@ -18,7 +18,12 @@ app.get("/", (req, res) => {
     const currentMode = modes.SPARKLES;
 
     const data = {
-      mode: currentMode.name
+      mode: currentMode.name,
+      num_sparkles: 500,
+      frame_rate: 30,
+      transition_time: 5,
+      sparkle_size: 4,
+      num_palettes: 5
     };
 
     console.log("Sending response:", data);
