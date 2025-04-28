@@ -2,6 +2,10 @@ import express from "express";
 import cors from "cors";
 import path from "path";
 import { fileURLToPath } from "url";
+import dotenv from "dotenv";
+
+// Load environment variables
+dotenv.config();
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -9,11 +13,26 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const port = 3102;
 
+// API Key middleware
+const apiKeyMiddleware = (req, res, next) => {
+  const apiKey = req.query.apiKey;
+
+  if (!apiKey || apiKey !== process.env.API_KEY) {
+    return res
+      .status(401)
+      .json({ error: "Unauthorized: Invalid or missing API key" });
+  }
+
+  next();
+};
+
 app.use(cors());
 app.use(express.json());
 app.use(express.static(__dirname));
 
-// Initial data state
+// Apply API key middleware to API routes
+app.use("/api", apiKeyMiddleware);
+
 let data = {
   num_sparkles: 100,
   sparkle_size: 1,
@@ -34,28 +53,6 @@ let data = {
   ]
 };
 
-// Color mapping for reference
-const COLOR_VALUES = {
-  red: 0xff0000,
-  orange: 0xff8000,
-  yellow: 0xffff00,
-  green: 0x00ff00,
-  cyan: 0x00ffff,
-  blue: 0x0000ff,
-  purple: 0x8000ff,
-  magenta: 0xff00ff,
-  white: 0xffffff,
-  lightPink: 0xffc0c0,
-  lightGreen: 0xc0ffc0,
-  lightBlue: 0xc0c0ff
-};
-
-// Serve index.html for the root path
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "index.html"));
-});
-
-// API routes
 app.get("/api/settings", (req, res) => {
   try {
     res.json(data);
@@ -69,20 +66,16 @@ app.post("/api/settings", (req, res) => {
   try {
     console.log("Received POST request with body:", req.body);
 
-    // Validate the request body
     if (!req.body || typeof req.body !== "object") {
       console.error("Invalid request body:", req.body);
       return res.status(400).json({ error: "Invalid request body" });
     }
 
-    // Update data with new values
     const updatedData = { ...data, ...req.body };
     console.log("Updated data:", updatedData);
 
-    // Update the data state
     data = updatedData;
 
-    // Send the updated data back
     res.json(data);
   } catch (error) {
     console.error("Error updating data:", error);
