@@ -97,12 +97,12 @@ app.get("/api/generate", async (req, res) => {
   });
 
   const response = await openai.responses.parse({
-    model: "gpt-4o-mini",
+    model: "gpt-4o",
     input: [
       {
         role: "user",
         content:
-          "Generate the settings for a quirky, themed sparkles animation with a 1-word name, num_sparkles should be between 1-200, sparkle_size should be between 1-10, speed should be between 10-100, colors should be an array of 1-12 numbers between 0-16777215"
+          "Generate the settings for a varied, quirky, themed sparkles animation with a 1-word name, num_sparkles should be between 1-200, sparkle_size should be between 1-10, speed should be between 10-100, colors should be an array of 1-12 numbers between 0-16777215"
       }
     ],
     text: {
