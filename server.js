@@ -102,7 +102,7 @@ app.get("/api/generate", async (req, res) => {
       {
         role: "user",
         content:
-          "Generate the settings for a varied, quirky, themed sparkles animation with a 1-word name like Neon, Ocean, Earth, Fire, Starry Night, Sunlight, but not limited to these, num_sparkles should be between 1-200, sparkle_size should be between 1-10 (mostly 1-5), speed should be between 10-100, colors should be an array of 1-12 numbers from (16711680, 16744448, 16776960, 65280, 65535, 255, 8388863, 16711935, 16777215, 16738740, 14524637, or 16766720) and should make sense for the theme"
+          "Generate the settings for a varied, quirky, themed sparkles animation with a 1-word name like Neon, Ocean, Earth, Fire, Starry Night, Sunlight, but not limited to these, num_sparkles should be between 1-200, sparkle_size should be between 1-10 (mostly 1-3), speed should be between 10-100, colors should be an array of 1-12 numbers from (16711680, 16744448, 16776960, 65280, 65535, 255, 8388863, 16711935, 16777215, 16738740, 14524637, or 16766720) and should make sense for the theme"
       }
     ],
     text: {
