@@ -3,8 +3,10 @@ import cors from "cors";
 import path from "path";
 import { fileURLToPath } from "url";
 import dotenv from "dotenv";
+import OpenAI from "openai";
+import { zodTextFormat } from "openai/helpers/zod";
+import { z } from "zod";
 
-// Load environment variables
 dotenv.config();
 
 const __filename = fileURLToPath(import.meta.url);
@@ -81,6 +83,36 @@ app.post("/api/settings", (req, res) => {
     console.error("Error updating data:", error);
     res.status(500).json({ error: "Internal server error" });
   }
+});
+
+app.get("/api/generate", async (req, res) => {
+  const openai = new OpenAI();
+
+  const Settings = z.object({
+    num_sparkles: z.number(),
+    sparkle_size: z.number(),
+    speed: z.number(),
+    colors: z.array(z.number()),
+    theme: z.string()
+  });
+
+  const response = await openai.responses.parse({
+    model: "gpt-4o-mini",
+    input: [
+      {
+        role: "user",
+        content:
+          "Generate the settings for a sparkles animation with quirky 1-2 word names, num_sparkles should be between 1-200, sparkle_size should be between 1-10, speed should be between 10-100, colors should be an array of 3-8 numbers between 0-16777215, theme should be a string"
+      }
+    ],
+    text: {
+      format: zodTextFormat(Settings, "settings")
+    }
+  });
+
+  const settings = response.output_parsed;
+
+  res.json(settings);
 });
 
 app.listen(port, () => {
