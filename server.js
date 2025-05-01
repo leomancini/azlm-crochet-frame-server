@@ -102,7 +102,7 @@ app.get("/api/generate", async (req, res) => {
       {
         role: "user",
         content:
-          "Generate the settings for a sparkles animation with quirky 1-2 word names, num_sparkles should be between 1-200, sparkle_size should be between 1-10, speed should be between 10-100, colors should be an array of 3-8 numbers between 0-16777215, theme should be a string"
+          "Generate the settings for a theme-based sparkles animation with quirky 1-2 word names, num_sparkles should be between 1-200, sparkle_size should be between 1-10, speed should be between 10-100, colors should be an array of 1-12 numbers between 0-16777215, theme should be a string"
       }
     ],
     text: {
