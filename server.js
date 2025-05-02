@@ -6,6 +6,7 @@ import dotenv from "dotenv";
 import OpenAI from "openai";
 import { zodTextFormat } from "openai/helpers/zod";
 import { z } from "zod";
+import fetch from "node-fetch";
 
 dotenv.config();
 
@@ -77,6 +78,18 @@ app.post("/api/settings", (req, res) => {
     console.log("Updated data:", updatedData);
 
     data = updatedData;
+
+    try {
+      fetch(
+        `https://switchbot-controller.noshado.ws/restart-crochet-frame?apiKey=${process.env.SWITCHBOT_CONTROLLER_API_KEY}`,
+        {
+          method: "POST"
+        }
+      );
+      console.log("Successfully triggered switchbot controller");
+    } catch (error) {
+      console.error("Error calling switchbot controller:", error);
+    }
 
     res.json(data);
   } catch (error) {
