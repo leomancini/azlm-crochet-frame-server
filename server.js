@@ -81,10 +81,7 @@ app.post("/api/settings", (req, res) => {
 
     try {
       fetch(
-        `https://switchbot-controller.noshado.ws/restart-crochet-frame?apiKey=${process.env.SWITCHBOT_CONTROLLER_API_KEY}`,
-        {
-          method: "POST"
-        }
+        `https://switchbot-controller.noshado.ws/restart-crochet-frame?apiKey=${process.env.SWITCHBOT_CONTROLLER_API_KEY}`
       );
       console.log("Successfully triggered switchbot controller");
     } catch (error) {
