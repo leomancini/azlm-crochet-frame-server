@@ -67,15 +67,12 @@ app.get("/api/settings", (req, res) => {
 
 app.post("/api/settings", (req, res) => {
   try {
-    console.log("Received POST request with body:", req.body);
-
     if (!req.body || typeof req.body !== "object") {
       console.error("Invalid request body:", req.body);
       return res.status(400).json({ error: "Invalid request body" });
     }
 
     const updatedData = { ...data, ...req.body };
-    console.log("Updated data:", updatedData);
 
     data = updatedData;
 
@@ -83,7 +80,6 @@ app.post("/api/settings", (req, res) => {
       fetch(
         `https://switchbot-controller.noshado.ws/restart-crochet-frame?apiKey=${process.env.SWITCHBOT_CONTROLLER_API_KEY}`
       );
-      console.log("Successfully triggered switchbot controller");
     } catch (error) {
       console.error("Error calling switchbot controller:", error);
     }
